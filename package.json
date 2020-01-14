@@ -1,0 +1,21 @@
+{
+  "name": "sitemod",
+  "version": "0.1.0",
+  "description": "Tweak sites the way you want them to be",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carl Calderon <carl.calderon@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup": "^1.29.0",
+    "rollup-plugin-livereload": "^1.0.4",
+    "rollup-plugin-svelte": "^5.1.1",
+    "rollup-plugin-terser": "^5.2.0",
+    "svelte": "^3.17.1"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "sitemod",
+  "description" : "Tweak sites the way you want them to be",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "sitemod.html"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "options_ui": {
+    "page": "dist/options.html",
+    "open_in_tab": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["runtime.js"]
+    }
+  ]
+}
