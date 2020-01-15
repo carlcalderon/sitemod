@@ -47,6 +47,5 @@ function createConfig(input, outputPath, outputName) {
 }
 
 export default [
-	createConfig('src/options.js', 'dist/build', 'options'),
 	createConfig('src/sitemod.js', 'dist/build', 'sitemod')
 ]
