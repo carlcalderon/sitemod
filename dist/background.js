@@ -8,7 +8,7 @@ function cleanup () {
 function handleTabChange (info) {
   chrome.tabs.get(info.tabId, function(change) {
     activeMod = patterns.some(pattern => change.url.match(pattern))
-    applyIcon(activeMod)
+    applyIcon(activeMod, info.tabId)
   })
 }
 
@@ -23,7 +23,7 @@ function initialize () {
   })
 }
 
-function applyIcon (active) {
+function applyIcon (active, tabId) {
   const padding = 3
   const thickness = 3
   const width = 24
@@ -41,11 +41,12 @@ function applyIcon (active) {
     context.fillStyle = '#f09'
     context.fillRect(padding + thickness, padding + thickness, width - padding * 2 - thickness * 2, height - padding * 2 - thickness * 2)
   }
-  chrome.browserAction.setIcon({imageData:context.getImageData(0, 0, 24, 24)});
+  chrome.browserAction.setIcon({imageData:context.getImageData(0, 0, 24, 24), tabId});
 }
 
 chrome.storage.onChanged.addListener(function () {
   cleanup()
   initialize()
 })
+applyIcon(false, null)
 initialize()
