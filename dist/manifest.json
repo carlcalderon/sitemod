@@ -8,11 +8,16 @@
   },
   "permissions": [
     "activeTab",
+    "tabs",
     "storage"
   ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "options_ui": {
-    "page": "dist/options.html",
-    "open_in_tab": false
+    "page": "options.html",
+    "open_in_tab": true
   },
   "content_scripts": [
     {

@@ -1,8 +1,6 @@
 import Options from './Options.svelte'
 
-const options = new Options({
+export default new Options({
 	target: document.body,
 	props: {}
 })
-
-export default options
