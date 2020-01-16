@@ -50,6 +50,7 @@
     background: transparent;
     width: 100%;
     height: 100%;
+    white-space: nowrap;
   }
   textarea:focus, textarea:active {
     border: 0;
