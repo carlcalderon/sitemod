@@ -1,5 +1,5 @@
 <script>
-
+  import CodeEditor from './CodeEditor.svelte'
   export let name
   export let pattern
   export let scripts = []
@@ -29,14 +29,14 @@
 
 <h2>Scripts</h2>
 {#each scripts as script}
-  <textarea bind:value={script}></textarea>
+  <CodeEditor language='javascript' bind:value={script}></CodeEditor>
   <button>Remove script</button>
 {/each}
 <button>Add script</button>
 
 <h2>Styles</h2>
 {#each styles as style}
-  <textarea bind:value={style}></textarea>
+  <CodeEditor language='css' bind:value={style}></CodeEditor>
   <button>Remove style</button>
 {/each}
 <button>Add style</button>

@@ -1,6 +1,6 @@
 <script>
   import { fly } from 'svelte/transition'
-  import ModEditor from './ModEditor.svelte'
+  import ModEditor from './components/ModEditor.svelte'
 
   export let modifiers = []
   let saved = false
