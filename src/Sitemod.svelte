@@ -1,5 +1,13 @@
 <script>
+  import { fly } from 'svelte/transition'
   import Options from './Options.svelte'
+
+  let options = null
+  let showBackButton = false
+
+  function goBack () {
+    options.goBack()
+  }
 
 </script>
 
@@ -11,15 +19,36 @@
     height: 600px;
     font-family: system-ui, sans-serif;
   }
+  :global(body) {
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    display: flex;
+    justify-content: flex-end;
+    background: grey;
+    padding: 15px;
+  }
   main {
     position: relative;
+    flex: 1;
   }
   h1 {
+    text-align: right;
+    flex: 1;
     margin: 0;
+  }
+  button {
+    flex: 0;
   }
 </style>
 
-<h1>sitemod</h1>
+<header>
+  {#if showBackButton}
+    <button out:fly={{x: 50}} in:fly={{x: 50}} on:click={goBack}>Back</button>
+  {/if}
+  <h1>sitemod</h1>
+</header>
 <main>
-  <Options></Options>
+  <Options bind:this={options} bind:showBackButton={showBackButton}></Options>
 </main>

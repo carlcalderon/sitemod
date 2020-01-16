@@ -2,9 +2,20 @@
   import { fly } from 'svelte/transition'
   import ModEditor from './components/ModEditor.svelte'
 
+  export let showBackButton = false
   export let modifiers = []
   let saved = false
   let selectedIndex = null
+
+  export function goBack () {
+    selectedIndex = null
+    showBackButton = false
+  }
+
+  function showDetails (index) {
+    selectedIndex = index
+    showBackButton = true
+  }
 
   function restore_options() {
     console.log('options restored!')
@@ -71,19 +82,22 @@
 <style>
   .modifier {
     height: 40px;
-    border-bottom: 1px solid grey;
+    border-bottom: 6px solid grey;
     position: relative;
+    padding: 0px 15px;
   }
 
   aside {
     position: absolute;
-    right: 0;
+    right: 15px;
     top: 0;
     padding: 12px 0px;
   }
 
   .name {
     padding: 12px 0px;
+    font-weight: bold;
+    font-size: 1.1em;
   }
 
   section {
@@ -91,8 +105,14 @@
     top: 0px;
     left: 0px;
     width: 100%;
-    padding: 20px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
     box-sizing: border-box;
+  }
+
+  .details {
+    padding: 15px;
   }
 </style>
 {#if selectedIndex === null}
@@ -100,7 +120,7 @@
 
     {#each modifiers as mod, index}
       <div class="modifier">
-        <div class="name" on:click={() => selectedIndex = index}>{mod.name}</div>
+        <div class="name" on:click={() => showDetails(index)}>{mod.name}</div>
         <aside>
           <input type="checkbox" bind:checked={mod.enabled} />
           <button on:click={() => removeModAt(index)}>Remove</button>
@@ -116,7 +136,6 @@
   </section>
 {:else}
   <section out:fly={{x: 100}} in:fly={{x: 100}} class="details">
-    <button on:click={() => selectedIndex = null}>Back</button>
     <h2>{modifiers[selectedIndex].name}</h2>
     <ModEditor
       bind:name={modifiers[selectedIndex].name}
