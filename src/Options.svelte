@@ -29,7 +29,9 @@
   }
 
   function removeModAt (index) {
-    modifiers = [...modifiers.slice(0, index), ...modifiers.slice(index + 1)]
+    if (window.confirm(`Are you sure you want to remove the sitemod "${modifiers[index].name}"? This can not be undone.`)) {
+      modifiers = [...modifiers.slice(0, index), ...modifiers.slice(index + 1)]
+    }
   }
 
 </script>
