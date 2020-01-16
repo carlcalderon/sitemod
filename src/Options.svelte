@@ -131,7 +131,6 @@
       bind:pattern={modifiers[selectedIndex].pattern}
       bind:scripts={modifiers[selectedIndex].scripts}
       bind:styles={modifiers[selectedIndex].styles}
-      bind:enabled={modifiers[selectedIndex].enabled}
     />
   </section>
 {/if}
