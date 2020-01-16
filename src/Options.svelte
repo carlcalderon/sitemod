@@ -40,19 +40,47 @@
     border-bottom: 6px solid #F2F3F5;
     position: relative;
     padding: 0px 25px;
+    display: flex;
+    flex-direction: row;
   }
 
-  aside {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    padding: 25px 0px;
+  .enabled {
+    flex: 0;
+    align-self: center;
+    margin-right: 25px;
+    z-index: 2;
   }
 
   .name {
-    padding: 25px 0px;
     font-weight: bold;
     font-size: 1.1em;
+    flex: 1;
+    align-self: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .actions {
+    flex: 0;
+    align-self: center;
+    margin-left: 25px;
+    z-index: 2;
+  }
+
+  .arrow {
+    flex: 0;
+    align-self: center;
+    margin-left: 25px;
+  }
+
+  .hitarea {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: transparent;
   }
 
   section {
@@ -78,11 +106,13 @@
 
     {#each modifiers as mod, index}
       <div class="modifier">
-        <div class="name" on:click={() => showDetails(index)}>{mod.name}</div>
-        <aside>
+        <input class="enabled " type="checkbox" bind:checked={mod.enabled} />
+        <div class="name">{mod.name}</div>
+        <aside class="actions">
           <button on:click={() => removeModAt(index)}>Remove</button>
-          <input type="checkbox" bind:checked={mod.enabled} />
         </aside>
+        <div class="arrow">&gt;</div>
+        <div class="hitarea" on:click={() => showDetails(index)} />
       </div>
     {/each}
 
