@@ -5,7 +5,7 @@ chrome.storage.sync.get({
 
   let active = false
   modifiers.forEach(function (mod) {
-    if (new RegExp(mod.pattern).test(window.location.href)) {
+    if (mod.enabled && new RegExp(mod.pattern).test(window.location.href)) {
       active = true
       mod.scripts.forEach(function (script) {
         const scriptTag = document.createElement('script')
