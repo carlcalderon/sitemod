@@ -2,10 +2,8 @@
   import { fly } from 'svelte/transition'
   import ModEditor from './components/ModEditor.svelte'
 
-  export let save = null
   export let showBackButton = false
   export let modifiers = []
-  let saved = false
   let selectedIndex = null
 
   export function goBack () {
@@ -85,6 +83,11 @@
     background: transparent;
   }
 
+  .add-button {
+    display: block;
+    margin: 25px auto;
+  }
+
   section {
     position: absolute;
     top: 0px;
@@ -92,7 +95,7 @@
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     box-sizing: border-box;
   }
 
@@ -118,11 +121,7 @@
       </div>
     {/each}
 
-    <button on:click={addMod}>+</button>
-    <button on:click={save}>Save</button>
-    {#if saved}
-      <p>Saved!</p>
-    {/if}
+    <button class="add-button" on:click={addMod}>Add sitemod</button>
   </section>
 {:else}
   <section out:fly={{x: 100}} in:fly={{x: 100}} class="details">

@@ -146,7 +146,6 @@
 </header>
 <main>
   <Options
-    bind:save
     bind:modifiers
     bind:this={options}
     bind:showBackButton={showBackButton}
