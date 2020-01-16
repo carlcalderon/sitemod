@@ -93,6 +93,21 @@
   :global(button:active), :global(button:focus) {
     outline: 0;
   }
+
+  :global(::-webkit-scrollbar) {
+    width: 20px;
+  }
+
+  :global(::-webkit-scrollbar-track) {
+    border: solid 7px white;
+  }
+
+  :global(::-webkit-scrollbar-thumb) {
+    border: solid 7px white;
+    border-radius: 10px;
+    background: #c7c7c7;
+  }
+
   header {
     display: flex;
     justify-content: flex-end;
