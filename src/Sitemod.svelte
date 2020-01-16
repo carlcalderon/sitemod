@@ -45,7 +45,7 @@
 
 <header>
   {#if showBackButton}
-    <button out:fly={{x: 50}} in:fly={{x: 50}} on:click={goBack}>Back</button>
+    <button out:fly={{x: 25}} in:fly={{x: 25}} on:click={goBack}>Back</button>
   {/if}
   <h1>sitemod</h1>
 </header>
