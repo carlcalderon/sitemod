@@ -1,10 +1,41 @@
 <script>
   import { fly } from 'svelte/transition'
+  import { blur } from 'svelte/transition'
   import Options from './Options.svelte'
 
+  const SAVE_DEBOUNCE = 1000
+
   let modifiers = []
+  let stateChecksum = null
   let options = null
   let showBackButton = false
+  let saveTimer = null
+  let saved = false
+
+  async function digest (input) {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(input)
+
+    const buffer = await crypto.subtle.digest('SHA-256', data)
+    const hashArray = Array.from(new Uint8Array(buffer))
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+    return hashHex
+  }
+
+  function saveOnChange (change) {
+    clearTimeout(saveTimer)
+    saveTimer = setTimeout(async () => {
+      if (stateChecksum) {
+        const newChecksum = await digest(JSON.stringify(change))
+        if (stateChecksum !== newChecksum) {
+          stateChecksum = newChecksum
+          save()
+        }
+      }
+    }, SAVE_DEBOUNCE)
+  }
+
+  $: saveOnChange(modifiers)
 
   function goBack () {
     options.goBack()
@@ -13,17 +44,16 @@
   function load() {
     chrome.storage.sync.get({
       modifiers: '[]',
-    }, function(items) {
+    }, async function(items) {
       modifiers = JSON.parse(items.modifiers)
+      stateChecksum = await digest(items.modifiers)
     })
   }
-
 
   function save () {
     chrome.storage.sync.set({
       modifiers: JSON.stringify(modifiers)
     }, function() {
-      // Update status to let user know options were saved.
       saved = true
       setTimeout(function() {
         saved = false
@@ -32,7 +62,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', load)
-
 </script>
 
 <style>
@@ -61,29 +90,42 @@
     background: #eeeeee;
     transition: none;
   }
+  :global(button:active), :global(button:focus) {
+    outline: 0;
+  }
   header {
     display: flex;
     justify-content: flex-end;
     background: #F2F3F5;
-    padding: 15px;
+    height: 40px;
+    padding-right: 25px;
+  }
+  .saved {
+    align-self: center;
+    flex: 0;
+    margin-right: 25px;
   }
   main {
     position: relative;
     flex: 1;
   }
   h1 {
-    text-align: right;
-    flex: 1;
+    align-self: center;
+    flex: 0;
     margin: 0;
   }
   button {
     flex: 0;
+    margin-right: auto;
   }
 </style>
 
 <header>
   {#if showBackButton}
     <button out:fly={{x: 25}} in:fly={{x: 25}} on:click={goBack}>Back</button>
+  {/if}
+  {#if saved}
+    <div class="saved" out:blur>Saved</div>
   {/if}
   <h1>sitemod</h1>
 </header>
