@@ -1,6 +1,7 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import css from 'rollup-plugin-css-only';
 import { terser } from 'rollup-plugin-terser';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -35,6 +36,7 @@ function createConfig(input, outputPath, outputName) {
 				dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/')
 			}),
 			commonjs(),
+			css({output: 'dist/build/vendor.css'}),
 
 			// If we're building for production (npm run build
 			// instead of npm run dev), minify
