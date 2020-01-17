@@ -43,14 +43,7 @@
 
   function load() {
     chrome.storage.sync.get({
-      modifiers: JSON.stringify([
-        {
-          name: 'Twitch.tv - Picture in Picture',
-          scripts: ['function injectPiPButton (document) {\n  // Get button container\n  var buttonGroup = document.querySelector(".player-controls__right-control-group")\n\n  // Clone an existing button\n  var pipButton = document.querySelector(".player-controls__right-control-group div").cloneNode(true)\n\n  // Modify our button visuals\n  var icon = pipButton.querySelector("svg")\n  icon.setAttribute("viewBox", "0 0 24 24")\n  icon.innerHTML = "<path d=\"M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98V5c0-1.1-.9-2-2-2zm0 16.01H3V4.98h18v14.03z\"/>"\n  pipButton.querySelector(".tw-tooltip").innerHTML = "Picture in Picture"\n\n  // Attach events\n  pipButton.addEventListener("click", function () {\n    document.querySelector(".video-player video")\n      .requestPictureInPicture()\n  })\n\n  // Add PiP button\n  buttonGroup.appendChild(pipButton)\n}\n\n// Activate when things should be available\nsetTimeout(function () { injectPiPButton(document) }, 1000)'],
-          styles: [''],
-          enabled: true
-        }
-      ]),
+      modifiers: '[]'
     }, async function(items) {
       modifiers = JSON.parse(items.modifiers)
       stateChecksum = await digest(items.modifiers)
