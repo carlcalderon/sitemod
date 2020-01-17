@@ -5,7 +5,10 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preshareable": "npm run build",
+    "shareable": "cp -r dist sitemod_$(date +%Y%m%d)",
+    "postshareable": "zip -r sitemod_$(date +%Y%m%d).zip sitemod_$(date +%Y%m%d); rm -rf sitemod_$(date +%Y%m%d)"
   },
   "author": "Carl Calderon <carl.calderon@gmail.com>",
   "license": "ISC",
