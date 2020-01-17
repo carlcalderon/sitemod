@@ -1,28 +1,3 @@
-let patterns = []
-let activeMod = false
-
-function cleanup () {
-  chrome.tabs.onActivated.removeListener(handleTabChange)
-}
-
-function handleTabChange (info) {
-  chrome.tabs.get(info.tabId, function(change) {
-    activeMod = patterns.some(pattern => change.url.match(pattern))
-    applyIcon(activeMod, info.tabId)
-  })
-}
-
-function initialize () {
-  chrome.storage.sync.get({
-    modifiers: '[]',
-  }, function(items) {
-    patterns = JSON.parse(items.modifiers).map(mod => (
-      new RegExp(mod.pattern)
-    ))
-    chrome.tabs.onActivated.addListener(handleTabChange)
-  })
-}
-
 function applyIcon (active, tabId) {
   chrome.browserAction.setIcon({
     path: {
@@ -36,8 +11,8 @@ function applyIcon (active, tabId) {
   });
 }
 
-chrome.storage.onChanged.addListener(function () {
-  cleanup()
-  initialize()
+chrome.runtime.onMessage.addListener(function (message, options) {
+  if (message.action === 'updateIcon') {
+    applyIcon(message.value, options.tab.id)
+  }
 })
-initialize()
