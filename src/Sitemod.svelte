@@ -1,6 +1,6 @@
 <script>
   import { fly } from 'svelte/transition'
-  import { blur } from 'svelte/transition'
+  import { fade } from 'svelte/transition'
   import Options from './Options.svelte'
 
   const SAVE_DEBOUNCE = 1000
@@ -149,7 +149,7 @@
     <button out:fly={{x: 25}} in:fly={{x: 25}} on:click={goBack}>Back</button>
   {/if}
   {#if saved}
-    <div class="saved" out:blur>Saved</div>
+    <div class="saved" out:fade>Saved</div>
   {/if}
   <h1>sitemod</h1>
 </header>
