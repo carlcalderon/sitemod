@@ -11,7 +11,7 @@
     "postshareable": "zip -r sitemod_$(date +%Y%m%d).zip sitemod_$(date +%Y%m%d); rm -rf sitemod_$(date +%Y%m%d)"
   },
   "author": "Carl Calderon <carl.calderon@gmail.com>",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
