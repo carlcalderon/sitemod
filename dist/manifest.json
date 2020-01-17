@@ -16,8 +16,6 @@
     "default_popup": "sitemod.html"
   },
   "permissions": [
-    "activeTab",
-    "tabs",
     "storage"
   ],
   "background": {
