@@ -9,24 +9,37 @@
 <style>
   label {
     font-weight: bold;
-  }
-  input {
+    margin: 10px auto 5px auto;
     display: block;
   }
+
+  label:first-of-type {
+    margin-top: 0px;
+  }
+
+  input {
+    display: block;
+    border: 1px solid #c7c7c7;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+  }
+
 </style>
 
 <label>Name</label>
 <input type="text" bind:value={name} placeholder="My sitemod" />
 
-<label>Pattern</label>
+<label>Pattern (Regular Expression)</label>
 <input type="text" bind:value={pattern} placeholder="example\.com" />
 
-<h2>Scripts</h2>
+<label>Script</label>
 {#each scripts as script}
   <CodeEditor language='javascript' bind:value={script}></CodeEditor>
 {/each}
 
-<h2>Styles</h2>
+<label>Style</label>
 {#each styles as style}
   <CodeEditor language='css' bind:value={style}></CodeEditor>
 {/each}

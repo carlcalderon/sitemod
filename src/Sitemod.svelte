@@ -107,6 +107,7 @@
   }
 
   :global(::-webkit-scrollbar-track) {
+    background: white;
     border: solid 7px white;
   }
 

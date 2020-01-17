@@ -97,21 +97,33 @@
     left: 0px;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
     box-sizing: border-box;
   }
 
-  .details {
-    padding: 15px;
+  .scrollable {
+    overflow-x: hidden;
+    overflow-y: auto;
   }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .editor {
+    padding: 20px;
+  }
+
   h2 {
-    margin-top: 0px;
+    margin: 0px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 6px solid #F2F3F5;
   }
 </style>
 {#if selectedIndex === null}
-  <section out:fly={{x: -100}} in:fly={{x: -100}}>
-
+  <section out:fly={{x: -100}} in:fly={{x: -100}} class="scrollable">
     {#each modifiers as mod, index}
       <div class="modifier">
         <div class="enabled">
@@ -131,11 +143,13 @@
 {:else}
   <section out:fly={{x: 100}} in:fly={{x: 100}} class="details">
     <h2>{modifiers[selectedIndex].name}</h2>
-    <ModEditor
-      bind:name={modifiers[selectedIndex].name}
-      bind:pattern={modifiers[selectedIndex].pattern}
-      bind:scripts={modifiers[selectedIndex].scripts}
-      bind:styles={modifiers[selectedIndex].styles}
-    />
+    <div class="editor scrollable">
+      <ModEditor
+        bind:name={modifiers[selectedIndex].name}
+        bind:pattern={modifiers[selectedIndex].pattern}
+        bind:scripts={modifiers[selectedIndex].scripts}
+        bind:styles={modifiers[selectedIndex].styles}
+      />
+    </div>
   </section>
 {/if}

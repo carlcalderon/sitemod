@@ -25,7 +25,7 @@
     height: 200px;
     width: 100%;
     overflow: hidden;
-    border: 1px solid grey;
+    border: 1px solid #c7c7c7;
   }
   pre {
     margin: 0;
