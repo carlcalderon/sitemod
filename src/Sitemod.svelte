@@ -103,6 +103,7 @@
 
   :global(::-webkit-scrollbar) {
     width: 20px;
+    height: 20px;
   }
 
   :global(::-webkit-scrollbar-track) {
