@@ -3,7 +3,7 @@
   import { fade } from 'svelte/transition'
   import Options from './Options.svelte'
 
-  const SAVE_DEBOUNCE = 1000
+  const SAVE_DEBOUNCE = 10
 
   let modifiers = []
   let stateChecksum = null
@@ -54,8 +54,8 @@
     chrome.storage.sync.set({
       modifiers: JSON.stringify(modifiers)
     }, function() {
-      saved = true
       changed = false
+      saved = true
       setTimeout(function() {
         saved = false
       }, 750)
@@ -153,7 +153,7 @@
   {#if saved}
     <div class="status" out:fade>All changes saved!</div>
   {:else if changed}
-    <div class="status" in:fade>Detected changes, saving...</div>
+    <div class="status">Detected changes, saving...</div>
   {/if}
   <h1>sitemod</h1>
 </header>

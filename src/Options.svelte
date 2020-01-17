@@ -6,15 +6,30 @@
   export let showBackButton = false
   export let modifiers = []
   let selectedIndex = null
+  let selectedMod = null
 
   export function goBack () {
     selectedIndex = null
     showBackButton = false
   }
 
-  function showDetails (index) {
+  function showDetails (mod, index) {
+    selectedMod = {
+      name: mod.name,
+      pattern: mod.pattern,
+      scripts: [...mod.scripts],
+      styles: [...mod.styles],
+      enabled: mod.enabled
+    }
     selectedIndex = index
     showBackButton = true
+  }
+
+  function updateModAtIndex (index, data) {
+    modifiers[index].name = data.name
+    modifiers[index].pattern = data.pattern
+    modifiers[index].scripts = data.scripts
+    modifiers[index].styles = data.styles
   }
 
   function addMod () {
@@ -115,11 +130,22 @@
     padding: 20px;
   }
 
-  h2 {
-    margin: 0px;
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
     border-bottom: 6px solid #F2F3F5;
+  }
+  h2 {
+    flex: 1;
+    margin: 0px;
+    align-self: center;
+  }
+  .save-button {
+    flex: 0;
+    align-self: center;
   }
 </style>
 {#if selectedIndex === null}
@@ -134,7 +160,7 @@
           <button on:click={() => removeModAt(index)}>Remove</button>
         </aside>
         <div class="arrow">Edit</div>
-        <div class="hitarea" on:click={() => showDetails(index)} />
+        <div class="hitarea" on:click={() => showDetails(mod, index)} />
       </div>
     {/each}
 
@@ -142,13 +168,21 @@
   </section>
 {:else}
   <section out:fly={{x: 100}} in:fly={{x: 100}} class="details">
-    <h2>{modifiers[selectedIndex].name}</h2>
+    <header>
+      <h2>{selectedMod.name}</h2>
+      <button
+        class="save-button"
+        on:click={() => updateModAtIndex(selectedIndex, selectedMod)}
+      >
+        Save
+      </button>
+    </header>
     <div class="editor scrollable">
       <ModEditor
-        bind:name={modifiers[selectedIndex].name}
-        bind:pattern={modifiers[selectedIndex].pattern}
-        bind:scripts={modifiers[selectedIndex].scripts}
-        bind:styles={modifiers[selectedIndex].styles}
+        bind:name={selectedMod.name}
+        bind:pattern={selectedMod.pattern}
+        bind:scripts={selectedMod.scripts}
+        bind:styles={selectedMod.styles}
       />
     </div>
   </section>
