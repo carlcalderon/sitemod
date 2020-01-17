@@ -10,6 +10,7 @@
   let options = null
   let showBackButton = false
   let saveTimer = null
+  let changed = false
   let saved = false
 
   async function digest (input) {
@@ -22,17 +23,16 @@
     return hashHex
   }
 
-  function saveOnChange (change) {
-    clearTimeout(saveTimer)
-    saveTimer = setTimeout(async () => {
-      if (stateChecksum) {
-        const newChecksum = await digest(JSON.stringify(change))
-        if (stateChecksum !== newChecksum) {
-          stateChecksum = newChecksum
-          save()
-        }
-      }
-    }, SAVE_DEBOUNCE)
+  async function saveOnChange (change) {
+    const newChecksum = await digest(JSON.stringify(change))
+    if (stateChecksum && stateChecksum !== newChecksum) {
+      changed = true
+      clearTimeout(saveTimer)
+      saveTimer = setTimeout(() => {
+        stateChecksum = newChecksum
+        save()
+      }, SAVE_DEBOUNCE)
+    }
   }
 
   $: saveOnChange(modifiers)
@@ -55,6 +55,7 @@
       modifiers: JSON.stringify(modifiers)
     }, function() {
       saved = true
+      changed = false
       setTimeout(function() {
         saved = false
       }, 750)
@@ -117,10 +118,11 @@
     height: 40px;
     padding-right: 25px;
   }
-  .saved {
+  .status {
     align-self: center;
     flex: 0;
     margin-right: 25px;
+    white-space: nowrap;
   }
   main {
     position: relative;
@@ -149,7 +151,9 @@
     </button>
   {/if}
   {#if saved}
-    <div class="saved" out:fade>Saved</div>
+    <div class="status" out:fade>All changes saved!</div>
+  {:else if changed}
+    <div class="status" in:fade>Detected changes, saving...</div>
   {/if}
   <h1>sitemod</h1>
 </header>
