@@ -1,7 +1,7 @@
 {
   "name": "sitemod",
   "description" : "Tweak sites the way you want them to be",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Carl Calderon <carl.calderon@gmail.com>",
   "homepage_url": "https://github.com/carlcalderon/sitemod",
   "manifest_version": 2,
