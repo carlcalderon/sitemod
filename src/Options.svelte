@@ -19,10 +19,10 @@
 
   function addMod () {
     modifiers = [...modifiers, {
-      name: 'New mod',
+      name: 'My sitemod',
       pattern: 'example\\.com',
-      scripts: ['console.log(\'new sitemod script\')'],
-      styles: ['body { background: violet }'],
+      scripts: ['/* Add JavaScript here */\nconsole.log(\'my sitemod script\')'],
+      styles: ['/* Add CSS here */'],
       enabled: true
     }]
   }
