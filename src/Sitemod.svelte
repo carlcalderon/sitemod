@@ -135,6 +135,8 @@
     align-self: center;
     flex: 0;
     margin: 0;
+    color: transparent;
+    background: transparent center url("../images/sitemod.svg") no-repeat;
   }
   button {
     flex: 0;
