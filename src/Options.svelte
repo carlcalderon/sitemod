@@ -72,6 +72,8 @@
     flex: 0;
     align-self: center;
     margin-left: 25px;
+    color: transparent;
+    background: transparent center url("../images/arrow-right.svg") no-repeat;
   }
 
   .hitarea {
@@ -116,7 +118,7 @@
         <aside class="actions">
           <button on:click={() => removeModAt(index)}>Remove</button>
         </aside>
-        <div class="arrow">&gt;</div>
+        <div class="arrow">Edit</div>
         <div class="hitarea" on:click={() => showDetails(index)} />
       </div>
     {/each}

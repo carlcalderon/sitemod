@@ -138,15 +138,20 @@
     color: transparent;
     background: transparent center url("../images/sitemod.svg") no-repeat;
   }
-  button {
+  .back-button {
     flex: 0;
     margin-right: auto;
+    color: transparent;
+    background: transparent center url("../images/arrow-left.svg") no-repeat;
+    border: 0;
   }
 </style>
 
 <header>
   {#if showBackButton}
-    <button out:fly={{x: 25}} in:fly={{x: 25}} on:click={goBack}>Back</button>
+    <button class="back-button" out:fly={{x: 25}} in:fly={{x: 25}} on:click={goBack}>
+      Back
+    </button>
   {/if}
   {#if saved}
     <div class="saved" out:fade>Saved</div>
