@@ -1,6 +1,6 @@
 {
   "name": "sitemod",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tweak sites the way you want them to be",
   "scripts": {
     "build": "NODE_ENV=production rollup -c",
