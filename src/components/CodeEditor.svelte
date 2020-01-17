@@ -9,9 +9,11 @@
   export let value = ''
   export let language = 'javascript'
   $: highlightedValue = hljs.highlight(language, value).value
+  let scrollX = 0
   let scrollY = 0
 
   function handleScroll (event) {
+    scrollX = event.target.scrollLeft
     scrollY = event.target.scrollTop
   }
 
@@ -27,9 +29,11 @@
   }
   pre {
     margin: 0;
+    padding: 10px;
     position: absolute;
     top: 0;
     left: 0;
+    box-sizing: border-box;
   }
   code {
     font-family: monospace;
@@ -43,7 +47,7 @@
     resize: none;
     color: transparent;
     caret-color: black;
-    padding: 0;
+    padding: 10px;
     position: absolute;
     top: 0;
     left: 0;
@@ -51,6 +55,7 @@
     width: 100%;
     height: 100%;
     white-space: nowrap;
+    box-sizing: border-box;
   }
   textarea:focus, textarea:active {
     border: 0;
@@ -59,7 +64,7 @@
 </style>
 
 <div class="container">
-  <pre style="transform: translateY(-{scrollY}px)">
+  <pre style="transform: translate(-{scrollX}px, -{scrollY}px)">
     <code contenteditable="false" bind:innerHTML={highlightedValue}></code>
   </pre>
   <textarea on:scroll={handleScroll} bind:value></textarea>
