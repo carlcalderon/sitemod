@@ -1,6 +1,7 @@
 <script>
   import { fly } from 'svelte/transition'
   import ModEditor from './components/ModEditor.svelte'
+  import ModToggle from './components/ModToggle.svelte'
 
   export let showBackButton = false
   export let modifiers = []
@@ -113,7 +114,9 @@
 
     {#each modifiers as mod, index}
       <div class="modifier">
-        <input class="enabled " type="checkbox" bind:checked={mod.enabled} />
+        <div class="enabled">
+          <ModToggle bind:active={mod.enabled} />
+        </div>
         <div class="name">{mod.name}</div>
         <aside class="actions">
           <button on:click={() => removeModAt(index)}>Remove</button>
