@@ -1,6 +1,6 @@
 <script>
-  import "highlight.js/styles/github.css"
-  import hljs from 'highlight.js/lib/highlight'
+  import 'highlight.js/styles/github.css'
+  import hljs from 'highlight.js/lib/common'
   import javascript from 'highlight.js/lib/languages/javascript'
   import css from 'highlight.js/lib/languages/css'
   hljs.registerLanguage('javascript', javascript)
@@ -8,7 +8,7 @@
 
   export let value = ''
   export let language = 'javascript'
-  $: highlightedValue = hljs.highlight(language, value).value
+  $: highlightedValue = hljs.highlight(value, {language}).value
   let scrollX = 0
   let scrollY = 0
 
@@ -18,6 +18,11 @@
   }
 
 </script>
+
+<div class="container">
+  <pre style="transform: translate(-{scrollX}px, -{scrollY}px)" contenteditable="false" bind:innerHTML={highlightedValue} />
+  <textarea on:scroll={handleScroll} bind:value></textarea>
+</div>
 
 <style>
   .container {
@@ -34,10 +39,10 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
-  }
-  code {
     font-family: monospace;
     font-size: 1.1em;
+    letter-spacing: 0px;
+    line-height: 1em;
   }
   textarea {
     font-family: monospace;
@@ -56,17 +61,11 @@
     height: 100%;
     white-space: nowrap;
     box-sizing: border-box;
+    letter-spacing: 0px;
+    line-height: 1em;
   }
   textarea:focus, textarea:active {
     border: 0;
     outline: 0
   }
 </style>
-
-<div class="container">
-  <pre style="transform: translate(-{scrollX}px, -{scrollY}px)">
-    <code contenteditable="false" bind:innerHTML={highlightedValue}></code>
-  </pre>
-  <textarea on:scroll={handleScroll} bind:value></textarea>
-</div>
-
