@@ -1,6 +1,7 @@
-version: 1
-update_configs:
-  - package_manager: javascript
+version: 2
+updates:
+  - package-ecosystem: "npm"
     directory: /
-    update_schedule: monthly
-    target_branch: develop
+    schedule:
+      interval: "monthly"
+    target-branch: develop
